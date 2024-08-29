@@ -1,14 +1,13 @@
 #include <assert.h>
 #include <iostream>
 using namespace std;
-
 bool batteryTempatureStatus(float temperature);
-bool batteryChargeIndicator(float soc);
+bool batteryChargeIndicator(float soc, float chargeRate);
 bool batteryChargeRate(float chargeRate);
 
 bool batteryIsOk(float temperature, float soc, float chargeRate)
 {
- if (batteryTempatureStatus(temperature) && batteryChargeIndicator(soc) && batteryChargeRate(chargeRate))
+ if (batteryTempatureStatus(temperature) && batteryChargeIndicator(soc, chargeRate))
  {
 		return true;
  }
@@ -31,17 +30,15 @@ bool batteryTempatureStatus(float temperature)
  }
 }
 
-bool batteryChargeIndicator(float soc)
+bool batteryChargeIndicator(float soc, float chargeRate)
 {
  if (soc < 20 || soc > 80)
  {
 		cout << "State of Charge out of range!\n";
 		return false;
  }
- else
- {
-		return true;
- }
+ return batteryChargeRate(chargeRate);
+ 
 }
 
 bool batteryChargeRate(float chargeRate)
@@ -62,4 +59,3 @@ int main()
  assert(batteryIsOk(25, 70, 0.7) == true);
  assert(batteryIsOk(50, 85, 0) == false);
 }
-
