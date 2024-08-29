@@ -1,23 +1,8 @@
 #include <assert.h>
 #include <iostream>
 using namespace std;
-bool batteryTempatureStatus(float temperature);
-bool batteryChargeIndicator(float soc, float chargeRate);
-bool batteryChargeRate(float chargeRate);
 
-bool batteryIsOk(float temperature, float soc, float chargeRate)
-{
- if (batteryTempatureStatus(temperature) && batteryChargeIndicator(soc, chargeRate))
- {
-		return true;
- }
- else
- {
-		return false;
- }
-}
-
-bool batteryTempatureStatus(float temperature)
+bool isBatteryTemperatureOk(float temperature)
 {
  if (temperature < 0 || temperature > 45)
  {
@@ -30,18 +15,20 @@ bool batteryTempatureStatus(float temperature)
  }
 }
 
-bool batteryChargeIndicator(float soc, float chargeRate)
+bool isBatteryStateOfChargeOk(float soc)
 {
  if (soc < 20 || soc > 80)
  {
 		cout << "State of Charge out of range!\n";
 		return false;
  }
- return batteryChargeRate(chargeRate);
- 
+	else
+ {
+	 return true;
+ } 
 }
 
-bool batteryChargeRate(float chargeRate)
+bool isBatteryChargeRateOk(float chargeRate)
 {
  if (chargeRate > 0.8)
  {
@@ -53,6 +40,13 @@ bool batteryChargeRate(float chargeRate)
 		return true;
  }
 }
+
+
+bool batteryIsOk(float temperature, float soc, float chargeRate)
+{
+	return (isBatteryTemperatureOk(temperature) && isBatteryStateOfChargeOk(soc) && isBatteryChargeRateOk(chargeRate));
+}
+
 
 int main()
 {
