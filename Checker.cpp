@@ -2,6 +2,10 @@
 #include <iostream>
 using namespace std;
 
+bool batteryTempatureStatus(float temperature);
+bool batteryChargeIndicator(float soc);
+bool batteryChargeRate(float chargeRate);
+
 bool batteryIsOk(float temperature, float soc, float chargeRate)
 {
  if (batteryTempatureStatus(temperature) && batteryChargeIndicator(soc) && batteryChargeRate(chargeRate))
@@ -58,3 +62,4 @@ int main()
  assert(batteryIsOk(25, 70, 0.7) == true);
  assert(batteryIsOk(50, 85, 0) == false);
 }
+
